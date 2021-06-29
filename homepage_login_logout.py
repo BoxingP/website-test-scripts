@@ -20,12 +20,12 @@ def input_text_value(browser, select, info):
 
 
 def main():
-    login_credential = load_yaml_file('./login_credential.yaml')
+    config = load_yaml_file('homepage_login_logout.yaml')
     browser = webdriver.Chrome()
-    wait = WebDriverWait(browser, 420)
-    browser.get(login_credential['url'])
-    input_text_value(browser, 'userMobile', login_credential['username'])
-    input_text_value(browser, 'userPassword', login_credential['password'])
+    wait = WebDriverWait(browser, config['wait_seconds'])
+    browser.get(config['url'])
+    input_text_value(browser, 'userMobile', config['username'])
+    input_text_value(browser, 'userPassword', config['password'])
     browser.find_element_by_xpath('//button[@type="submit"]').click()
     wait.until(expected_conditions.visibility_of_element_located((By.CSS_SELECTOR, '.logout-icon')))
     browser.find_element_by_xpath('//i[@class="anticon anticon-logout"]').click()
