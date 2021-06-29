@@ -22,7 +22,12 @@ def input_text_value(browser, select, info):
 def main():
     config_file = __file__.split('/')[-1].split('.')[0] + '.yaml'
     config = load_config(config_file)
-    browser = webdriver.Chrome()
+    browser_options = webdriver.ChromeOptions()
+    browser_options.add_argument('--no-sandbox')
+    browser_options.add_argument('--window-size=1420,1080')
+    browser_options.add_argument('--headless')
+    browser_options.add_argument('--disable-gpu')
+    browser = webdriver.Chrome(options=browser_options)
     wait = WebDriverWait(browser, config['wait_seconds'])
     browser.get(config['url'])
     input_text_value(browser, 'userMobile', config['username'])
