@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
 
-def load_yaml_file(file):
+def load_config(file):
     with open(file, 'r', encoding='UTF-8') as file:
         config = yaml.load(file, Loader=yaml.SafeLoader)
     return config
@@ -20,7 +20,8 @@ def input_text_value(browser, select, info):
 
 
 def main():
-    config = load_yaml_file('homepage_login_logout.yaml')
+    config_file = __file__.split('/')[-1].split('.')[0] + '.yaml'
+    config = load_config(config_file)
     browser = webdriver.Chrome()
     wait = WebDriverWait(browser, config['wait_seconds'])
     browser.get(config['url'])
